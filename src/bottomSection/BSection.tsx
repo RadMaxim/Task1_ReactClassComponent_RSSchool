@@ -1,60 +1,60 @@
-import * as React from 'react';
-import Card from '../Card/Card';
-import './BSection.css';
-import { State, ElementType } from '../All_Interface/BottomSection';
-class BSection extends React.PureComponent {
-  state: State = {
-    all_elem: [],
-    filter: [],
-    input_value: ' ',
-  };
-  constructor(props: State) {
-    super(props);
-  }
-  componentDidMount() {
-    const all_elem: ElementType[] = JSON.parse(
-      localStorage.getItem('allPeople') || '[]'
-    );
-    const filter = JSON.parse(localStorage.getItem('filter_array') || '[]');
-    const input_value = localStorage.getItem('input_value') || '[]';
-    this.setState({
-      all_elem: all_elem,
-      filter: filter,
-      input_value: input_value,
-    });
-  }
+import * as React from "react";
+import "./BSection.css";
+import { State, ElementType } from "../All_Interface/BottomSection";
+import Pagination from "./Pagination/Pagination";
+import ElemsPag from "./Pagination/PaginatorElems/ElemsPag";
+import { Outlet } from "react-router-dom";
 
-  render() {
-    return (
-      <>
-        <main className="main_content">
-          <div className="main_container">
-            {this.state.input_value == null
-              ? this.state.all_elem.map((el: ElementType) => {
-                  return (
-                    <Card
-                      key={el.name}
-                      names={el.name}
-                      homeworld={el.homeworld}
-                      url={el.url}
-                    />
-                  );
-                })
-              : this.state.filter.map((el: ElementType) => {
-                  return (
-                    <Card
-                      key={el.name}
-                      names={el.name}
-                      homeworld={el.homeworld}
-                      url={el.url}
-                    />
-                  );
-                })}
-          </div>
-        </main>
-      </>
+const BSection = (props: {
+  setStateElem: React.Dispatch<React.SetStateAction<ElementType | undefined>>;
+}) => {
+  const [state, setState] = React.useState<State>();
+  React.useEffect(() => {
+    // const searchQuery =  useSearchQuery({key:"all",value:"[]"})
+
+    const all_elems: ElementType[] = JSON.parse(
+      localStorage.getItem("all") || "[]",
     );
-  }
-}
+    const filters: ElementType[] = JSON.parse(
+      localStorage.getItem("filter_array") || "[]",
+    );
+    const input_value: string = localStorage.getItem("input_value") || "";
+    setState((elem) => {
+      return {
+        ...elem,
+        all_elem: all_elems,
+        filter: filters,
+        input_value: input_value,
+      };
+    });
+  }, []);
+
+  return (
+    <>
+      <main className="main_content">
+        <div className="main_container">
+          {state && (
+            <Pagination
+              setStateElem={props.setStateElem}
+              allElem={state.all_elem}
+              filterElem={state.filter}
+              inputValue={state.input_value}
+            />
+          )}
+        </div>
+      </main>
+      <div>
+        {state && (
+          <ElemsPag
+            allElem={state.all_elem}
+            filterElem={state.filter}
+            inputValue={state.input_value}
+          />
+        )}
+      </div>
+      <Outlet />
+    </>
+  );
+};
 
 export default BSection;
