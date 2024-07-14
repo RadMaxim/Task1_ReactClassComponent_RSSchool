@@ -55,7 +55,6 @@ const allFunction = async ({ setLoad }: ForLoad) => {
       return buf;
     }, []);
 
-    //  const q =  useSearchQuery("all", JSON.stringify(allPeopleInfo_step2))
     localStorage.setItem("all", JSON.stringify(allPeopleInfo_step2));
     setLoad(false);
   } catch {
