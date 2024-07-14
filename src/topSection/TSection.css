@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 .header_container {
-  height: 40vh;
+  height: 40%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -14,16 +14,16 @@
 .header_h1 {
   font-family: "Courier New", Courier, monospace;
   color: white;
-  font-size: 15vh;
+  font-size: 30px;
   font-weight: 700;
 }
 form {
   display: flex;
   gap: 20px;
-  width: 80vw;
+  width: 80%;
 }
 #input1 {
-  width: 60vw;
+  width: 60%;
   padding: 5px;
   border-radius: 10px;
   outline: none;
@@ -33,7 +33,7 @@ form {
 }
 
 .search {
-  width: 15vw;
+  width: 80px;
   border-radius: 10px;
   background-color: rgb(0, 0, 0);
   color: white;

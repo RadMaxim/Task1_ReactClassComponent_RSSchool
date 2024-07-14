@@ -1,9 +1,8 @@
 export interface State {
   err: boolean;
-
   totalPerson: number;
   counterPage: number;
-  arrayAllLinks: [];
+  arrayAllLinks: string[];
   allPeopleInfo: [];
   isLoad: boolean;
 }

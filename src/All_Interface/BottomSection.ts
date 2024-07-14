@@ -1,6 +1,6 @@
 export interface State {
-  all_elem: [];
-  filter: [];
+  all_elem: ElementType[];
+  filter: ElementType[];
   input_value: string;
 }
 export interface ElementType {
