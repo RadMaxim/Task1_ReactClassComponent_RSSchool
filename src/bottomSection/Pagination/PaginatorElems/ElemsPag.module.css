@@ -1,0 +1,26 @@
+.paginator_list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  gap: 20px;
+  padding: 10px 80px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.336);
+  margin-bottom: 100px;
+}
+.paginator_list li {
+  width: 40px;
+  height: 40px;
+  background: rgb(143, 143, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  border-radius: 5px;
+}
+.paginator_list li:hover {
+  background: blue;
+  cursor: pointer;
+} /*# sourceMappingURL=ElemsPag.module.css.map */

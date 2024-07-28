@@ -1,0 +1,9 @@
+@mixin positionElement($v, $g) {
+  display: flex;
+  justify-content: $g;
+  align-items: $v;
+}
+@mixin fontStyle($c, $f) {
+  color: $c;
+  font-size: $f;
+}

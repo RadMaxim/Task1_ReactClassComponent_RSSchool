@@ -1,9 +1,8 @@
 export interface State {
   err: boolean;
-
   totalPerson: number;
   counterPage: number;
-  arrayAllLinks: [];
+  arrayAllLinks: string[];
   allPeopleInfo: [];
   isLoad: boolean;
 }
@@ -24,4 +23,10 @@ export interface ElementType {
   starships: [];
   url: string;
   vehicles: string;
+}
+export interface stateTSection {
+  err: boolean;
+  load: boolean;
+  inputVal: string;
+  allElement: ElementType[] | [];
 }

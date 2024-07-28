@@ -1,0 +1,12 @@
+@mixin positionElement() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.main_magazin {
+  text-align: center;
+  .ul_favorite {
+    @include positionElement();
+  }
+}
