@@ -3,45 +3,43 @@ import "./App.css";
 import BSection from "./bottomSection/BSection";
 import TSection from "./topSection/TSection";
 import RightSection from "./RightSection/RightSection";
-import { useState } from "react";
-import { ElementType } from "./All_Interface/BottomSection";
+import React, { useState } from "react";
 import NotFoundPage from "./NotFoundPage/NotFoundPage";
+import { Theme } from "./ContextForApp/ContextForApp";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import Magazin from "./magazin/Magazin";
 
-const App = () => {
-  const [stateElem, setStateElem] = useState<ElementType | undefined>();
-  console.log(stateElem);
+const App: React.FC = () => {
+  const [theme, setTheme] = useState<boolean>(false);
+
+  console.log(theme);
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            element={
-              <>
-                <TSection />
-                <BSection setStateElem={setStateElem} />
-              </>
-            }
-            path="/"
-          />
-          <Route
-            path="/details/:detailsCard"
-            element={
-              <div className="panel">
-                <div className="leftPanel">
-                  <TSection />
-
-                  <BSection setStateElem={setStateElem} />
-                </div>
-                <div className="rightPanel">
-                  <RightSection stateElem={stateElem} />
-                </div>
-              </div>
-            }
-          />
-
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+        <Theme.Provider value={{ theme, setTheme }}>
+          <BrowserRouter>
+            <Routes>
+              <Route
+                element={
+                  <div className={theme ? "light" : "dark"}>
+                    <TSection />
+                    <BSection />
+                  </div>
+                }
+                path="/"
+              >
+                <Route
+                  path="/details/:detailsCard"
+                  element={<RightSection />}
+                />
+              </Route>
+              <Route path="*" element={<NotFoundPage />} />
+              <Route path="/magazin" element={<Magazin />} />
+            </Routes>
+          </BrowserRouter>
+        </Theme.Provider>
+      </Provider>
     </>
   );
 };

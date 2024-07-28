@@ -1,34 +1,39 @@
-import { Link } from "react-router-dom";
-import { ElementType } from "../../../All_Interface/BottomSection";
-const Chunk = (array: ElementType[], size: number): ElementType[][] => {
-  if (!array.length) {
-    return [];
-  }
-  const head = array.slice(0, size); // c 0 по 6 фильм обрезаем
-  const tail = array.slice(size); // с 6 до конца
-  return [head, ...Chunk(tail, size)]; // рекурсивный случай
-};
-const ElemsPag = (props: {
-  allElem: ElementType[];
-  filterElem: ElementType[];
-  inputValue: string;
-}) => {
-  const { allElem, filterElem, inputValue } = props;
+import { Link, useSearchParams } from "react-router-dom";
+import classElemsPag from "./ElemsPag.module.css";
+import { useGetFilterDataAboutOurCardsQuery } from "../../../store/api/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import Load from "../../../Load/Load";
+const ElemsPag = () => {
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+  const inputValue = useSelector((elem: RootState) => elem.stateEl.inputValue);
+  const { data, isLoading } = useGetFilterDataAboutOurCardsQuery({
+    search: inputValue,
+    page: page,
+  });
 
-  return (
-    <>
-      <ul className="paginator_list">
-        {(inputValue == "" ? Chunk(allElem, 6) : Chunk(filterElem, 6)).map(
-          (elem, i) => {
-            return (
-              <Link key={i} className="page" to={`/?search=&page=${i}`}>
-                {i}
-              </Link>
-            );
-          },
-        )}
-      </ul>
-    </>
-  );
+  if (data?.count) {
+    const countElem = Math.ceil(data?.count / 10);
+
+    return (
+      <>
+        <ul className={classElemsPag.paginator_list}>
+          {countElem > 0 &&
+            new Array(countElem).fill(0).map((_, i) => {
+              return (
+                <Link key={i + 1} to={`/?search=${inputValue}&page=${i + 1}`}>
+                  <li>{i + 1}</li>
+                </Link>
+              );
+            })}
+        </ul>
+      </>
+    );
+  } else if (isLoading) {
+    return <Load />;
+  } else {
+    return <h1>Error...</h1>;
+  }
 };
 export default ElemsPag;

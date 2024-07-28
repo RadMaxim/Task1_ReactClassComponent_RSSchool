@@ -1,0 +1,45 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.info_main {
+  border: 3px solid blue;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30vw;
+  height: 50vh;
+  padding: 30px;
+  background: rgb(255, 255, 255);
+  border-radius: 15px;
+}
+
+.info_container > div {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.close {
+  top: 5px;
+  right: 10px;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgb(0, 0, 255);
+  transform: rotate(45deg);
+  color: white;
+
+  border-radius: 50%;
+
+  line-height: 30px;
+  text-decoration: none;
+  text-align: center;
+}
+.name {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+}
+.birth_year,
+.edited,
+.height {
+  font-size: 20px;
+}

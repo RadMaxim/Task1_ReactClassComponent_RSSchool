@@ -24,3 +24,9 @@ export interface ElementType {
   url: string;
   vehicles: string;
 }
+export interface stateTSection {
+  err: boolean;
+  load: boolean;
+  inputVal: string;
+  allElement: ElementType[] | [];
+}

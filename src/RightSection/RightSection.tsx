@@ -1,26 +1,30 @@
-import { Link, useParams } from "react-router-dom";
-import { ElementType } from "../All_Interface/BottomSection";
-import "./RightSection.css";
-const RightSection = (props: { stateElem: ElementType |undefined}) => {
-  const { stateElem } = props;
-  const p = useParams();
-  console.log(p.detailsCard);
+import { Link } from "react-router-dom";
+import classRightSection from "./RightSection.module.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
+const RightSection = () => {
+  const stElem = useSelector((state: RootState) => state.stateEl);
 
   return (
     <>
-      <div className="info_main">
-        <Link to="/" className="close">
-          <p>+</p>
+      <div className={classRightSection.info_main}>
+        <Link to="/" className={classRightSection.close}>
+          +
         </Link>
-        <div className="info_container">
-          <div className="name">{stateElem?.name}</div>
-          <div className="birth_year">{stateElem?.birth_year}</div>
-          <div className="created">{stateElem?.created}</div>
-          <div className="edited">{stateElem?.edited}</div>
-          <div className="films">
-            <p> {stateElem?.films.join(", ")}</p>
+        <div className={classRightSection.info_container}>
+          <div className={classRightSection.name}>
+            {stElem.initialState?.name}
           </div>
-          <div>{stateElem?.homeworld}</div>
+          <hr />
+          <div className={classRightSection.edited}>
+            {stElem.initialState?.edited}
+          </div>
+          <div className={classRightSection.birth_year}>
+            {stElem.initialState?.birth_year}
+          </div>
+          <div className={classRightSection.height}>
+            {stElem.initialState?.height}
+          </div>
         </div>
       </div>
     </>

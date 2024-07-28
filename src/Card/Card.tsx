@@ -1,24 +1,27 @@
 import { Link } from "react-router-dom";
-import "./card.css";
+import classCards from "./card.module.css";
 import * as React from "react";
-import { ElementType } from "../All_Interface/BottomSection";
+import { Cards, ProportesElement } from "../All_Interface/Cards";
+import { FaHeart } from "react-icons/fa";
+import {
+  removeElements,
+  saveElements,
+  setRightSection,
+} from "../store/counterSlice";
+import { useDispatch } from "react-redux";
+import { Theme } from "../ContextForApp/ContextForApp";
 
-interface ProportesElement {
-  homeworld: string;
-  name: string;
-  url: string;
-}
-
-interface Cards {
-  key: string;
-  info: ElementType;
-  id: string;
-  setStateElem: React.Dispatch<React.SetStateAction<ElementType | undefined>>;
-}
-const Card = ({ info, id, setStateElem }: Cards) => {
+const Card = ({ favorite, info, id }: Cards) => {
+  const dispatch = useDispatch();
+  const [states, setStates] = React.useState(false);
   const [state, setState] = React.useState<ProportesElement>();
-  const { homeworld, name, url } = info;
-
+  const { homeworld, name, url, birth_year, height } = info;
+  const context = React.useContext(Theme);
+  if (!context) {
+    throw new Error("theme");
+  }
+  const { theme, setTheme } = context;
+  console.log(theme, setTheme);
   React.useEffect(() => {
     setState({
       ...state,
@@ -27,25 +30,42 @@ const Card = ({ info, id, setStateElem }: Cards) => {
       url: url,
     });
   }, []);
+
   return (
     <>
-      <Link to={`/details/${id}`}>
-        <section
-          className="cards"
-          onClick={(e) => {
-            console.log(e.currentTarget);
-            setStateElem({
-              ...info,
-            });
-          }}
+      <section
+        className={theme ? classCards.cardsLight : classCards.cardsDark}
+        onClick={() => {
+          dispatch(setRightSection(info));
+        }}
+      >
+        <Link className={classCards.link} to={`/details/${id}`}></Link>
+        <div className={classCards.name}>{name}</div>
+        <hr />
+        <div className={classCards.info}>
+          <h5>{height}</h5>
+          <p>{birth_year}</p>
+        </div>
+        <div
+          className={
+            !theme
+              ? classCards.choice_favorite_light
+              : classCards.choice_favorite_dark
+          }
         >
-          <div>{state?.name}</div>
-          <div>
-            <h5>{state?.homeworld}</h5>
-            <p>{state?.url}</p>
-          </div>
-        </section>
-      </Link>
+          <FaHeart
+            onClick={() => {
+              states
+                ? dispatch(saveElements(info))
+                : dispatch(removeElements(info));
+              setStates(!states);
+            }}
+            className={
+              !favorite ? classCards.GrFavorite : classCards.GrFavorite_active
+            }
+          />
+        </div>
+      </section>
     </>
   );
 };

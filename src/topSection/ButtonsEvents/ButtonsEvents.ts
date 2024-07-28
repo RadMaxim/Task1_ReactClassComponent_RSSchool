@@ -1,34 +1,32 @@
-import { ElementType } from "../../All_Interface/TopSection";
-interface ForSetError {
-  err: boolean;
-  setError: React.Dispatch<React.SetStateAction<boolean>>;
-}
-const button_err = ({ setError }: ForSetError) => {
-  setError(false);
+import React, { ChangeEvent } from "react";
+import { ForLoad } from "../../All_Interface/ButtonsEvents";
+import { Dispatch, UnknownAction } from "redux";
+import { setInputValues } from "../../store/counterSlice";
+import { stateTSection } from "../../All_Interface/TopSection";
+
+const button_err = ({ states, setStates }: ForLoad) => {
+  if (states) {
+    setStates({ ...states, err: false });
+  }
 };
-const button_click = () => {
-  const input_val: string = document
-    .getElementsByTagName("input")[0]
-    .value.trim();
-  localStorage.setItem("input_value", input_val);
-
-  const all_people_info: ElementType[] = JSON.parse(
-    localStorage.getItem("all") || "[]",
-  );
-
-  const filter_array = Array.from(all_people_info).filter((el: ElementType) => {
-    if (input_val.length == 0) return true;
-    if (
-      String(el.name)
-        .toLocaleLowerCase()
-        .includes(input_val.toLocaleLowerCase())
-    ) {
-      return true;
-    }
-    return false;
-  });
-  localStorage.setItem("filter_array", JSON.stringify(filter_array));
-  window.location.reload();
+export function setInputValue(
+  e: ChangeEvent<HTMLInputElement>,
+  setStates: React.Dispatch<React.SetStateAction<stateTSection | null>>,
+  states: stateTSection | null,
+) {
+  if (states) {
+    setStates({ ...states, inputVal: e.target.value });
+  }
+}
+const button_click = (
+  dispatch: Dispatch<UnknownAction>,
+  valueInput: string,
+) => {
+  try {
+    dispatch(setInputValues(valueInput.toLowerCase() || ""));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export { button_err, button_click };
