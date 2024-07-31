@@ -4,7 +4,8 @@ import { useGetFilterDataAboutOurCardsQuery } from "../../../store/api/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import Load from "../../../Load/Load";
-const ElemsPag = () => {
+import React from "react";
+const ElemsPag:React.FC = () => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
   const inputValue = useSelector((elem: RootState) => elem.stateEl.inputValue);

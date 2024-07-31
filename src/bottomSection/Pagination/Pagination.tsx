@@ -5,8 +5,9 @@ import { useGetFilterDataAboutOurCardsQuery } from "../../store/api/api";
 import Load from "../../Load/Load";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import React from "react";
 
-const Pagination = () => {
+const Pagination:React.FC = () => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
   const inputValue = useSelector((elem: RootState) => elem.stateEl.inputValue);

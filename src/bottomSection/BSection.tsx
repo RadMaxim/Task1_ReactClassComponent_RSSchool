@@ -1,10 +1,11 @@
+import React from "react";
 import BottomPanel from "../bottomPanel/BottomPanel";
 import classBSection from "./BSection.module.css";
 import Pagination from "./Pagination/Pagination";
 import ElemsPag from "./Pagination/PaginatorElems/ElemsPag";
 import { Outlet } from "react-router-dom";
 
-const BSection = () => {
+const BSection:React.FC = () => {
   return (
     <>
       <main className={classBSection.main_content}>

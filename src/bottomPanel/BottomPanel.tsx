@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { removeAllElements, setCountSave } from "../store/counterSlice";
 import { IoMdDownload } from "react-icons/io";
 import { FaAnglesUp } from "react-icons/fa6";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { Theme } from "../ContextForApp/ContextForApp";
 import { saveAs } from "file-saver";
 import { ElementType } from "../All_Interface/BottomSection";
@@ -21,7 +21,7 @@ const handlerEventButton = (allChoice: ElementType[]) => {
   saveAs(blob, `${allChoice.length}_save.csv`);
   console.log("save");
 };
-const BottomPanel = () => {
+const BottomPanel:React.FC = () => {
   const allChoice = useSelector((items: RootState) => items.stateEl.savedElem);
   const dispatch = useDispatch();
   const context = useContext(Theme);

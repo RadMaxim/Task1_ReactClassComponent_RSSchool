@@ -1,8 +1,8 @@
-section {
+#section {
   transition: 0.5s;
   cursor: pointer;
 }
-section:hover {
+#section:hover {
   transform: scale(1.01);
 }
 .cardsLight {
@@ -24,7 +24,7 @@ section:hover {
   position: relative;
   color: rgb(0, 38, 255);
 }
-svg {
+#svg {
   top: 5px;
   right: 5px;
   position: absolute;

@@ -1,5 +1,6 @@
+import React from "react";
 import "./Load.css";
-const Load = () => {
+const Load:React.FC = () => {
   return (
     <>
       <div className="load_container">

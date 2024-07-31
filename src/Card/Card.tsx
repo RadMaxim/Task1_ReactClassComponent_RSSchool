@@ -34,6 +34,7 @@ const Card = ({ favorite, info, id }: Cards) => {
   return (
     <>
       <section
+      id="section"
         className={theme ? classCards.cardsLight : classCards.cardsDark}
         onClick={() => {
           dispatch(setRightSection(info));
@@ -54,6 +55,7 @@ const Card = ({ favorite, info, id }: Cards) => {
           }
         >
           <FaHeart
+          id="svg"
             onClick={() => {
               states
                 ? dispatch(saveElements(info))

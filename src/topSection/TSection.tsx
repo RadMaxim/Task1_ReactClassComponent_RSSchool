@@ -51,7 +51,7 @@ const TSection = () => {
           >
             Search Information
           </h1>
-          <form>
+          <form className={classTSection.form}>
             <input
               className={
                 theme
