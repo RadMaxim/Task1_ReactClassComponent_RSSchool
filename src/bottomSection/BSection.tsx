@@ -11,11 +11,11 @@ const BSection:React.FC = () => {
       <main className={classBSection.main_content}>
         <div className={classBSection.main_container}>
           <div className={classBSection.main_container_left}>
-            {<Pagination />}
-            <div>{<ElemsPag />}</div>
+            {/* {<Pagination />} */}
+            {/* <div>{<ElemsPag />}</div> */}
           </div>
           <div className={classBSection.main_container_right}>
-            <Outlet />
+            {/* <Outlet /> */}
           </div>
         </div>
       </main>

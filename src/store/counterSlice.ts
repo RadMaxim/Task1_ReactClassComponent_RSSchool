@@ -1,3 +1,4 @@
+"use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ElementType } from "../All_Interface/BottomSection";
 
@@ -8,6 +9,7 @@ export interface AllInterfaces {
   savedElem: ElementType[];
   countSave: number;
 }
+
 const initialState: AllInterfaces = {
   initialState: {
     birth_year: "",
@@ -26,10 +28,14 @@ const initialState: AllInterfaces = {
     vehicles: "",
     choice: false,
   },
-  filterArray: JSON.parse(localStorage.getItem("filter_elem") || "[]"),
-  inputValue: localStorage.getItem("input_value") || null,
-  savedElem: JSON.parse(localStorage.getItem("ListPeople") || "[]"),
-  countSave: Number(localStorage.getItem("count")) || 0,
+  // filterArray: JSON.parse(localStorage.getItem("filter_elem") || "[]"),
+  // inputValue: localStorage.getItem("input_value") || null,
+  // savedElem: JSON.parse(localStorage.getItem("ListPeople") || "[]"),
+  // countSave: Number(localStorage.getItem("count")) || 0,
+  filterArray:[],
+  inputValue:"",
+  savedElem:[],
+  countSave:0
 };
 const counterSlice = createSlice({
   name: "stateEl",
@@ -41,11 +47,11 @@ const counterSlice = createSlice({
 
     setFilterCards: (state, action: PayloadAction<ElementType[]>) => {
       state.filterArray = [...action.payload];
-      localStorage.setItem("filter_elem", JSON.stringify(state.filterArray));
+      // localStorage.setItem("filter_elem", JSON.stringify(state.filterArray));
     },
     setInputValues: (state, action: PayloadAction<string>) => {
       state.inputValue = action.payload;
-      localStorage.setItem("input_value", state.inputValue);
+      // localStorage.setItem("input_value", state.inputValue);
     },
     saveElements: (state, action: PayloadAction<ElementType>) => {
       if (
@@ -53,10 +59,10 @@ const counterSlice = createSlice({
       ) {
         const arr = [...state.savedElem, action.payload];
         state.savedElem = arr;
-        localStorage.setItem("ListPeople", JSON.stringify(state.savedElem));
+        // localStorage.setItem("ListPeople", JSON.stringify(state.savedElem));
         console.log("save");
         state.countSave = state.savedElem.length;
-        localStorage.setItem("count", String(state.countSave));
+        // localStorage.setItem("count", String(state.countSave));
         console.log(state.savedElem);
       } else {
         console.log("it is");
@@ -66,11 +72,11 @@ const counterSlice = createSlice({
       state.savedElem = state.savedElem.filter(
         (elem) => elem.name !== action.payload.name,
       );
-      localStorage.setItem("ListPeople", JSON.stringify(state.savedElem));
+      // localStorage.setItem("ListPeople", JSON.stringify(state.savedElem));
       state.countSave = state.savedElem.length;
       console.log("remove");
       console.log(state.savedElem);
-      localStorage.setItem("count", String(state.countSave));
+      // localStorage.setItem("count", String(state.countSave));
     },
     setCountSave: (state, action: PayloadAction<number>) => {
       state.countSave = action.payload;

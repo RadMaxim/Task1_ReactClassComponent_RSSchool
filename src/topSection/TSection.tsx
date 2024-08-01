@@ -1,14 +1,19 @@
+"use client";
 import * as React from "react";
 import classTSection from "./TSection.module.css";
 import { button_click } from "./ButtonsEvents/ButtonsEvents";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaRegLightbulb } from "react-icons/fa";
 import { Theme } from "../ContextForApp/ContextForApp";
 import { AiFillDatabase } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { saveElements, setCountSave, setFilterCards, setInputValues } from '../store/counterSlice';
+import Link from "next/link";
+
 const TSection = () => {
+  
   const dispatch = useDispatch();
   const inputs = React.useRef<HTMLInputElement>(null);
   const context = React.useContext(Theme);
@@ -17,7 +22,15 @@ const TSection = () => {
     throw new Error("not context!");
   }
   const { theme, setTheme } = context;
-
+  React.useEffect(()=>{
+    if (typeof window !=="undefined") {
+      
+    
+      dispatch(setFilterCards(JSON.parse(localStorage.getItem("filter_elem") || "[]")))
+      dispatch(setInputValues(localStorage.getItem("input_value") || ""))
+      dispatch(saveElements(JSON.parse(localStorage.getItem("ListPeople") || "[]")))
+      dispatch(setCountSave(Number(localStorage.getItem("count")) || 0))}
+  },[])
   React.useEffect(() => {
     try {
       inputs.current?.setAttribute(
@@ -40,7 +53,7 @@ const TSection = () => {
         </div>
 
         <div className={classTSection.list}>
-          <Link to={"/magazin"}>
+          <Link href={"/magazin"}>
             <AiFillDatabase className={classTSection.AiFillDatabase} />
           </Link>
           <div className={classTSection.circle}>{select}</div>
@@ -66,7 +79,7 @@ const TSection = () => {
               className={
                 theme ? classTSection.searchLight : classTSection.searchDark
               }
-              to={`/?search=${inputs.current?.value || ""}`}
+             href={`/?search=${inputs.current?.value || ""}`}
               onClick={() =>
                 button_click(dispatch, inputs.current?.value || "")
               }
