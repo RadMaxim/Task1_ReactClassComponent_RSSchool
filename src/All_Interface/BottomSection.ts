@@ -1,6 +1,5 @@
 export interface State {
-  all_elem: [];
-  filter: [];
+  filter: ElementType[];
   input_value: string;
 }
 export interface ElementType {
@@ -16,8 +15,7 @@ export interface ElementType {
   mass: string;
   name: string;
   skin_color: string;
-  species: [];
-  starships: [];
   url: string;
   vehicles: string;
+  choice: boolean;
 }

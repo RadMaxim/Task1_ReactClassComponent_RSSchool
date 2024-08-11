@@ -1,8 +1,7 @@
-import * as React from "react";
 import "./ErrorUI.css";
-class ErrorUI extends React.Component {
-  render() {
-    return (
+const ErrorUI = () => {
+  return (
+    <>
       <main className="main_err">
         <section className="sec_err">
           <h2>Something went wrong!</h2>
@@ -18,7 +17,8 @@ class ErrorUI extends React.Component {
           Try again
         </button>
       </main>
-    );
-  }
-}
+    </>
+  );
+};
+
 export default ErrorUI;

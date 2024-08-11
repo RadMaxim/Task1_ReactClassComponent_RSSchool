@@ -1,33 +1,75 @@
-import "./card.css";
+import { Link } from "react-router-dom";
+import classCards from "./card.module.css";
 import * as React from "react";
-import { CardProps, CardState } from "../All_Interface/Card";
-class Card extends React.Component<CardProps, CardState> {
-  state: CardState = {
-    names: "",
-    homeworld: "",
-    url: "",
-  };
-  constructor(props: CardProps) {
-    super(props);
+import { Cards, ProportesElement } from "../All_Interface/Cards";
+import { FaHeart } from "react-icons/fa";
+import {
+  removeElements,
+  saveElements,
+  setRightSection,
+} from "../store/counterSlice";
+import { useDispatch } from "react-redux";
+import { Theme } from "../ContextForApp/ContextForApp";
+
+const Card = ({ favorite, info, id }: Cards) => {
+  const dispatch = useDispatch();
+  const [states, setStates] = React.useState(false);
+  const [state, setState] = React.useState<ProportesElement>();
+  const { homeworld, name, url, birth_year, height } = info;
+  const context = React.useContext(Theme);
+  if (!context) {
+    throw new Error("theme");
   }
-  componentDidMount() {
-    this.setState({
-      names: this.props.names,
-      homeworld: this.props.homeworld,
-      url: this.props.url,
+  const { theme, setTheme } = context;
+  console.log(theme, setTheme);
+  React.useEffect(() => {
+    setState({
+      ...state,
+      homeworld: homeworld,
+      name: name,
+      url: url,
     });
-  }
-  render() {
-    return (
-      <section className="cards">
-        <div>{this.state.names}</div>
-        <div>
-          <h5>{this.state.homeworld}</h5>
-          <p>{this.state.url}</p>
+  }, []);
+
+  return (
+    <>
+      <section
+      id="section"
+        className={theme ? classCards.cardsLight : classCards.cardsDark}
+        onClick={() => {
+          dispatch(setRightSection(info));
+        }}
+      >
+        <Link className={classCards.link} to={`/details/${id}`}></Link>
+        <div className={classCards.name}>{name}</div>
+        <hr />
+        <div className={classCards.info}>
+          <h5>{height}</h5>
+          <p>{birth_year}</p>
+        </div>
+        <div
+          className={
+            !theme
+              ? classCards.choice_favorite_light
+              : classCards.choice_favorite_dark
+          }
+        >
+          <FaHeart
+          id="svg"
+            onClick={() => {
+              states
+                ? dispatch(saveElements(info))
+                : dispatch(removeElements(info));
+              setStates(!states);
+            }}
+            className={
+              !favorite ? classCards.GrFavorite : classCards.GrFavorite_active
+            }
+          />
         </div>
       </section>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default Card;

@@ -1,0 +1,29 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.paginator_list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+  gap: 5px;
+}
+.page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background: rgb(70, 70, 255);
+  color: white;
+  font-weight: 700;
+  padding: 20px;
+  text-decoration: none;
+}
+.page:hover {
+  cursor: pointer;
+  background: rgb(6, 6, 255);
+  color: white;
+}

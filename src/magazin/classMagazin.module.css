@@ -1,0 +1,9 @@
+.main_magazin {
+  text-align: center;
+}
+.main_magazin .ul_favorite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+} /*# sourceMappingURL=classMagazin.module.css.map */

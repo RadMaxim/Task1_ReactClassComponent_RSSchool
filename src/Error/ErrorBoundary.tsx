@@ -1,8 +1,6 @@
 import * as React from "react";
 import ErrorUI from "./ErrorUI";
-interface ErrorBoundarys {
-  children: React.ReactNode;
-}
+import { ErrorBoundarys } from "../All_Interface/Error";
 
 class ErrorBoundary extends React.PureComponent<ErrorBoundarys> {
   state = {
@@ -23,7 +21,6 @@ class ErrorBoundary extends React.PureComponent<ErrorBoundarys> {
 
   render() {
     if (this.state.hasError) {
-      console.log("hello");
       return <ErrorUI />;
     }
 
